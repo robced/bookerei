@@ -1,14 +1,13 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
 import { client } from "../lib/client";
-import { HomeComponent } from "../interfaces/HomeComponent.interface";
-import { Banner } from "../interfaces/Banner.interface";
 import HomeSection from "../components/sections/HomeSection";
 import ShopSection from "../components/sections/ShopSection";
+import { AppComponent } from "../interfaces/AppComponent.interface";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const Home = ({ banner, product }: HomeComponent) => {
+const Home = ({ services, products }: AppComponent) => {
   return (
     <div className="h-screen w-screen">
       <Head>
@@ -17,7 +16,7 @@ const Home = ({ banner, product }: HomeComponent) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="h-screen w-screen">
-        <HomeSection data={banner} />
+        <HomeSection products={products} services={services} />
         <ShopSection />
       </main>
     </div>
@@ -26,13 +25,13 @@ const Home = ({ banner, product }: HomeComponent) => {
 
 export const getServerSideProps = async () => {
   const query = '*[_type == "product"]';
-  const products: Banner = await client.fetch(query);
+  const products = await client.fetch(query);
 
-  const bannerQuery = '*[_type == "banner"]';
-  const banner = await client.fetch(bannerQuery);
+  const serviceQuery = '*[_type == "service"]';
+  const services = await client.fetch(serviceQuery);
 
   return {
-    props: { products, banner },
+    props: { products, services },
   };
 };
 
