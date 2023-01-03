@@ -4,7 +4,7 @@ import Search from "../elements/Search";
 
 const Header = () => {
   return (
-    <div className="h-[4rem] w-full flex items-center justify-between font-roboto z-10 absolute">
+    <div className="h-[4rem] w-full flex items-center justify-between font-roboto z-30 absolute px-[200px]">
       <h3 className="w-2/8 text-3xl font-bold  text-primary">
         Book<b className="font-bold text-primary/70">erei</b>
       </h3>
