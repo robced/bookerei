@@ -18,7 +18,7 @@ const ShopSection = () => {
         <div className="h-[10vh] w-1/2">
           <Filter />
         </div>
-        <div className="">
+        <div className="font-roboto flex w-full gap-5 text-secondary font-medium">
           <button className="">Best Seller</button>
           <button className="">Category</button>
           <button className="">Explore</button>
