@@ -19,6 +19,12 @@ export interface AppContext {
   setSearchPrompt: Dispatch<SetStateAction<string>>;
   searchResults: Product[];
   setSearchResults: Dispatch<SetStateAction<Array<Product>>>;
+  filteringAll: Boolean;
+  filteringAuthors: Boolean;
+  filteringGenre: Boolean;
+  setFilteringAll: Dispatch<SetStateAction<boolean>>;
+  setFilteringAuthors: Dispatch<SetStateAction<boolean>>;
+  setFilteringGenre: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface AppContextProps extends PropsWithChildren {

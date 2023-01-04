@@ -1,4 +1,10 @@
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import {
   AppContext,
   AppContextProps,
@@ -15,6 +21,9 @@ export const StateContext = ({ children }: AppContextProps) => {
   const [searchPrompt, setSearchPrompt] = useState("");
   const [searchResults, setSearchResults] = useState<any>([]);
   const [filtering, setFiltering] = useState(false);
+  const [filteringGenre, setFilteringGenre] = useState(false);
+  const [filteringAll, setFilteringAll] = useState(false);
+  const [filteringAuthors, setFilteringAuthors] = useState(false);
   const [showCart, setShowCart] = useState(false);
 
   if (servicesData.length > 2 && productsData.length > 2) {
@@ -40,6 +49,12 @@ export const StateContext = ({ children }: AppContextProps) => {
         setSearchPrompt,
         searchResults,
         setSearchResults,
+        filteringAll,
+        filteringAuthors,
+        filteringGenre,
+        setFilteringAll,
+        setFilteringAuthors,
+        setFilteringGenre,
       }}
     >
       {children}
