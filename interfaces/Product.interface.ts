@@ -1,5 +1,7 @@
+import { Key } from "react";
+
 export interface Product {
-  _id: String;
+  _id: Key | null;
   name: String;
   author: String;
   slug: String;
