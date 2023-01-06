@@ -6,4 +6,6 @@ export interface BookCard {
   shop?: boolean;
   color: String;
   text: String;
+  buttonColor: String;
+  buttonTextColor: String;
 }

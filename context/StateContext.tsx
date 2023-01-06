@@ -9,7 +9,6 @@ import {
   AppContext,
   AppContextProps,
 } from "../interfaces/AppContext.interface";
-import { client } from "../lib/client";
 
 const Context = createContext({} as AppContext);
 
@@ -21,14 +20,14 @@ export const StateContext = ({ children }: AppContextProps) => {
   const [searchPrompt, setSearchPrompt] = useState("");
   const [searchResults, setSearchResults] = useState<any>([]);
   const [filtering, setFiltering] = useState(false);
-  const [filteringGenre, setFilteringGenre] = useState(false);
-  const [filteringAll, setFilteringAll] = useState(false);
-  const [filteringAuthors, setFilteringAuthors] = useState(false);
+  const [filteringBy, setFilteringBy] = useState("all");
+  const [filteringPrompt, setFilteringPrompt] = useState("");
+  const [filteringResults, setFilteringResults] = useState<any>([]);
   const [showCart, setShowCart] = useState(false);
 
-  if (servicesData.length > 2 && productsData.length > 2) {
-    setLoading(false);
-  }
+  useEffect(() => {
+    if (servicesData.length > 2 && productsData.length > 2) setLoading(false);
+  }, [servicesData, productsData]);
 
   return (
     <Context.Provider
@@ -49,12 +48,12 @@ export const StateContext = ({ children }: AppContextProps) => {
         setSearchPrompt,
         searchResults,
         setSearchResults,
-        filteringAll,
-        filteringAuthors,
-        filteringGenre,
-        setFilteringAll,
-        setFilteringAuthors,
-        setFilteringGenre,
+        filteringPrompt,
+        setFilteringPrompt,
+        filteringResults,
+        setFilteringResults,
+        filteringBy,
+        setFilteringBy,
       }}
     >
       {children}

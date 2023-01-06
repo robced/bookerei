@@ -1,40 +1,90 @@
-import React from "react";
+import Link from "next/link";
+import React, { useEffect } from "react";
 import { useStateContext } from "../../context/StateContext";
 import { SearchIcon } from "./Icons";
 
 const Filter = () => {
   const {
-    setFilteringAll,
-    setFilteringAuthors,
-    setFilteringGenre,
-    filteringAll,
-    filteringAuthors,
-    filteringGenre,
+    filteringBy,
+    setFilteringBy,
+    filteringPrompt,
+    filteringResults,
+    setFilteringResults,
+    setFilteringPrompt,
+    productsData,
+    filtering,
+    setFiltering,
   } = useStateContext();
 
   const handleFilteringAll = () => {
-    setFilteringAll(true);
-    setFilteringAuthors(false);
-    setFilteringGenre(false);
+    setFilteringBy("all");
+    setFilteringPrompt("");
   };
 
   const handleFilteringAuthors = () => {
-    setFilteringAll(false);
-    setFilteringAuthors(true);
-    setFilteringGenre(false);
+    setFilteringBy("authors");
+    setFilteringPrompt("");
   };
 
   const handleFilteringGenre = () => {
-    setFilteringAll(false);
-    setFilteringAuthors(false);
-    setFilteringGenre(true);
+    setFilteringBy("genre");
+    setFilteringPrompt("");
   };
+
+  useEffect(() => {
+    if (!filteringPrompt) setFiltering(false);
+    if (filteringPrompt) {
+      setFiltering(true);
+      switch (filteringBy) {
+        case "all": {
+          const results = productsData.filter((value) => {
+            return (
+              value.name
+                .toLowerCase()
+                .includes(filteringPrompt.toLowerCase()) ||
+              value.author.toLowerCase().includes(filteringPrompt.toLowerCase())
+            );
+          });
+          setFilteringResults(results);
+          break;
+        }
+        case "genre": {
+          const results = productsData.filter((value) => {
+            return value.genre
+              .toLowerCase()
+              .includes(filteringPrompt.toLowerCase());
+          });
+          setFilteringResults(results);
+          break;
+        }
+        case "authors": {
+          const results = productsData.filter((value) => {
+            return value.author
+              .toLowerCase()
+              .includes(filteringPrompt.toLowerCase());
+          });
+          setFilteringResults(results);
+          break;
+        }
+      }
+    }
+  }, [
+    filteringPrompt,
+    productsData,
+    filteringBy,
+    setFilteringBy,
+    setFilteringResults,
+    setFiltering,
+  ]);
+
   // TODO: BOOK FILTER
   return (
-    <div className="h-14 w-full bg-secbase rounded-2xl flex items-center justify-between">
+    <div className="h-14 w-full bg-secbase rounded-2xl flex items-center justify-between relative">
       <div className="w-2/3 pl-5 text-secondary flex items-center gap-5">
         <SearchIcon />
         <input
+          onChange={(e) => setFilteringPrompt(e.target.value)}
+          value={filteringPrompt}
           type="text"
           className="bg-transparent h-full w-full font-roboto text-xl"
           placeholder="Search..."
@@ -44,7 +94,7 @@ const Filter = () => {
         <button
           onClick={handleFilteringAll}
           className={` h-8 w-fit px-3 rounded-lg ${
-            filteringAll
+            filteringBy === "all"
               ? "bg-secondary/50 text-bg"
               : "bg-transparent text-secondary"
           }`}
@@ -54,7 +104,7 @@ const Filter = () => {
         <button
           onClick={handleFilteringGenre}
           className={` h-8 w-fit px-3 rounded-lg ${
-            filteringGenre
+            filteringBy === "genre"
               ? "bg-secondary/50 text-bg"
               : "bg-transparent text-secondary"
           }`}
@@ -64,7 +114,7 @@ const Filter = () => {
         <button
           onClick={handleFilteringAuthors}
           className={` h-8 w-fit px-3 rounded-lg ${
-            filteringAuthors
+            filteringBy === "authors"
               ? "bg-secondary/50 text-bg"
               : "bg-transparent text-secondary"
           }`}

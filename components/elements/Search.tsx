@@ -14,14 +14,6 @@ const Search = () => {
     productsData,
   } = useStateContext();
 
-  const handleSearch = (e: any) => {
-    const searchWord = e.target.value;
-    const results = productsData.filter((value) => {
-      return value.name.toLowerCase().includes(searchWord.toLowerCase());
-    });
-    setSearchResults(results);
-  };
-
   useEffect(() => {
     if (!searchPrompt) setSearching(false);
     if (searchPrompt) {

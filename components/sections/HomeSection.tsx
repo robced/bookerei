@@ -33,14 +33,18 @@ const HomeSection = () => {
         </div>
         <div className="w-1/2 h-full flex items-center justify-center z-10 gap-5 relative">
           <BookCard
-            products={productsData[0]}
+            products={productsData[7]}
             color="bg-primary"
             text="text-bg"
+            buttonColor="bg-[#EECABF]"
+            buttonTextColor="text-primary"
           />
           <BookCard
             products={productsData[1]}
             color="bg-primary/40"
             text="text-primary"
+            buttonColor="bg-primary"
+            buttonTextColor="text-[#EECABF]"
           />
         </div>
       </div>

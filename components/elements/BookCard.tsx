@@ -4,12 +4,20 @@ import { BookCard } from "../../interfaces/BookCard.interface";
 import { urlFor } from "../../lib/client";
 import AddButton from "./AddButton";
 
-const BookCard = ({ products, main, shop, color, text }: BookCard) => {
+const BookCard = ({
+  products,
+  main,
+  shop,
+  color,
+  text,
+  buttonColor,
+  buttonTextColor,
+}: BookCard) => {
   const { name, author, price, image, details } = products;
   return (
     <div
       className={`${
-        shop ? "w-[332.05px] h-[638px]" : "w-[370px] h-[698px]"
+        shop ? "w-[320px] h-[638px]" : "w-[350px] h-[698px]"
       } bg-bg rounded-[50px] shadow-xl flex-shrink-0 ${
         name === "Outliers" ? "flex" : " hidden lg:flex"
       } flex-col relative items-center justify-evenly`}
@@ -19,13 +27,13 @@ const BookCard = ({ products, main, shop, color, text }: BookCard) => {
         alt="Book Cover"
         width={shop ? 287 : 327}
         height={shop ? 454 : 494}
-        className="rounded-[40px] shadow-xl"
+        className="rounded-[40px] shadow-md"
       ></Image>
       <div
         className={`${
-          shop ? "h-[165px] w-[297px]" : "h-[165px] w-[337px]"
-        } flex flex-col justify-evenly ${color} ${text} ${
-          shop ? "rounded-b-[35px]" : "rounded-b-[45px]"
+          shop ? "h-[165px] w-[297px]" : "h-[175px] w-[337px]"
+        } flex flex-col justify-evenly shadow-md ${color} ${text} ${
+          shop ? "rounded-b-[45px]" : "rounded-b-[45px]"
         } rounded-t-[30px] p-5 font-roboto 
         }`}
       >
@@ -37,7 +45,7 @@ const BookCard = ({ products, main, shop, color, text }: BookCard) => {
           <p className={`font-bold ${shop ? "text-3xl" : "text-4xl"}`}>
             ${price}
           </p>
-          <AddButton filled={main ? true : false} />
+          <AddButton color={buttonColor} textColor={buttonTextColor} />
         </div>
       </div>
     </div>
